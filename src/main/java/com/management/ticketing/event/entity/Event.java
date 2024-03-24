@@ -11,7 +11,6 @@ import java.time.Instant;
 @ToString
 @Getter
 @Setter
-
 public class Event extends Auditable {
     @Id
     @Column(nullable = false)
