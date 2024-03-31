@@ -24,7 +24,7 @@ public class AthleteService {
     public List<GetAthleteResponse> getAllUsers() {
         return athleteRepo.findAll().stream().map(
                         it -> GetAthleteResponse.builder().athleteId(
-                                it.getAthleteId()).athleteName(it.getAthleteName()).build())
+                                it.getAthleteId()).athleteName(it.getAthleteName()).id(it.getId()).build())
                 .collect(Collectors.toList());
     }
 
@@ -42,7 +42,8 @@ public class AthleteService {
             throw new RuntimeException("No user found with given athlete id " + loginRequest.getAthleteId());
         } else {
             return GetAthleteResponse.builder()
-                    .athleteName(athlete.getAthleteName()).athleteId(athlete.getAthleteId()).build();
+                    .athleteName(athlete.getAthleteName())
+                    .athleteId(athlete.getAthleteId()).id(athlete.getId()).build();
         }
     }
 }

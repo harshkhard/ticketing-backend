@@ -2,6 +2,7 @@ package com.management.ticketing.athleteevent.controller;
 
 import com.management.ticketing.athleteevent.model.AthleteEventResponse;
 import com.management.ticketing.athleteevent.model.CreateAthleteEventRequest;
+import com.management.ticketing.athleteevent.model.UnRegisterEventRequest;
 import com.management.ticketing.athleteevent.service.AthleteEventService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class AthleteEventController {
     }
 
     @PatchMapping("/un_register_event/")
-    void deactivateAthleteEvent(@RequestParam("id") Long id) {
-        athleteEventService.deactivateAthleteEvent(id);
+    void deactivateAthleteEvent(@Valid @RequestBody UnRegisterEventRequest unRegisterEventRequest) {
+        athleteEventService.deactivateAthleteEvent(unRegisterEventRequest);
     }
 }

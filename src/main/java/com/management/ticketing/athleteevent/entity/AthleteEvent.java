@@ -9,9 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity()
-@Table(name = "athlete_event", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"athlete_id", "event_id", "active"})
-})
+@Table(name = "athlete_event")
 @Getter
 @Setter
 @ToString

@@ -11,4 +11,6 @@ import lombok.*;
 public class GetAthleteResponse {
     String athleteName;
     String athleteId;
+
+    Long id;
 }

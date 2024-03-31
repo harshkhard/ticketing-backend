@@ -5,6 +5,7 @@ import com.management.ticketing.athlete.repo.AthleteRepo;
 import com.management.ticketing.athleteevent.entity.AthleteEvent;
 import com.management.ticketing.athleteevent.model.AthleteEventResponse;
 import com.management.ticketing.athleteevent.model.CreateAthleteEventRequest;
+import com.management.ticketing.athleteevent.model.UnRegisterEventRequest;
 import com.management.ticketing.athleteevent.repo.AthleteEventRepo;
 import com.management.ticketing.event.entity.Event;
 import com.management.ticketing.event.repo.EventRepo;
@@ -57,8 +58,11 @@ public class AthleteEventService {
         athleteEventRepo.save(athleteEvent);
     }
 
-    public void deactivateAthleteEvent(Long id) {
-        AthleteEvent athleteEvent = athleteEventRepo.findById(id).orElseThrow();
+    public void deactivateAthleteEvent(UnRegisterEventRequest unRegisterEventRequest) {
+        AthleteEvent athleteEvent = athleteEventRepo
+                .findByAthleteIdAndEventIdAndActive(unRegisterEventRequest.getAthleteId(),
+                        unRegisterEventRequest.getEventId(), true
+        ).orElseThrow();
         athleteEvent.setActive(false);
         athleteEventRepo.save(athleteEvent);
     }
