@@ -18,17 +18,26 @@ public class AthleteEventController {
     @Autowired
     private final AthleteEventService athleteEventService;
 
-    @GetMapping("/")
-    AthleteEventResponse getAllEventsForUser(@RequestParam(name = "athlete_id") Long athleteId) {
+    @GetMapping("/registered_events")
+    AthleteEventResponse getAllEventsForUser(
+            @RequestParam(name = "athlete_id") Long athleteId
+    ) {
         return athleteEventService.getAllEventsForAthlete(athleteId);
     }
 
-    @PostMapping("/")
+    @GetMapping("/un_registered_events")
+    AthleteEventResponse getUnregisteredEventsForUser(
+            @RequestParam(name = "athlete_id") Long athleteId
+    ) {
+        return athleteEventService.getAllEventsNotRegisteredForUser(athleteId);
+    }
+
+    @PostMapping("/register_event")
     void addAthleteEvent(@Valid @RequestBody CreateAthleteEventRequest createAthleteEventRequest) {
         athleteEventService.createAthleteEvent(createAthleteEventRequest);
     }
 
-    @PatchMapping("/deactivate/")
+    @PatchMapping("/un_register_event/")
     void deactivateAthleteEvent(@RequestParam("id") Long id) {
         athleteEventService.deactivateAthleteEvent(id);
     }

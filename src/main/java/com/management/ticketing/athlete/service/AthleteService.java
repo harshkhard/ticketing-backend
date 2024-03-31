@@ -3,6 +3,7 @@ package com.management.ticketing.athlete.service;
 import com.management.ticketing.athlete.entity.Athlete;
 import com.management.ticketing.athlete.model.CreateUserRequest;
 import com.management.ticketing.athlete.model.GetAthleteResponse;
+import com.management.ticketing.athlete.model.LoginRequest;
 import com.management.ticketing.athlete.repo.AthleteRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,10 +36,10 @@ public class AthleteService {
         log.info("created user " + athlete.toString());
     }
 
-    public GetAthleteResponse getAthleteByAthleteId(String athleteId) {
-        Athlete athlete = athleteRepo.findByAthleteId(athleteId).orElse(null);
+    public GetAthleteResponse getAthleteByAthleteId(LoginRequest loginRequest) {
+        Athlete athlete = athleteRepo.findByAthleteId(loginRequest.getAthleteId()).orElse(null);
         if (Objects.isNull(athlete)) {
-            throw new RuntimeException("No user found with given athlete id " + athleteId);
+            throw new RuntimeException("No user found with given athlete id " + loginRequest.getAthleteId());
         } else {
             return GetAthleteResponse.builder()
                     .athleteName(athlete.getAthleteName()).athleteId(athlete.getAthleteId()).build();

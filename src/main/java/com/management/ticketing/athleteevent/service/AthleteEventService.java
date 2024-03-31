@@ -8,6 +8,8 @@ import com.management.ticketing.athleteevent.model.CreateAthleteEventRequest;
 import com.management.ticketing.athleteevent.repo.AthleteEventRepo;
 import com.management.ticketing.event.entity.Event;
 import com.management.ticketing.event.repo.EventRepo;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +34,17 @@ public class AthleteEventService {
     @Autowired
     private final EventRepo eventRepo;
 
+
     public AthleteEventResponse getAllEventsForAthlete(Long athleteId) {
         List<AthleteEvent> athleteEvents = athleteEventRepo.findByAthleteIdAndActive(athleteId, true);
         return AthleteEventResponse.builder()
                 .events(athleteEvents.stream().map(it -> it.getEvent())
                         .collect(Collectors.toList())).count(athleteEvents.size()).build();
+    }
+
+    public AthleteEventResponse getAllEventsNotRegisteredForUser(Long athleteId) {
+        List<Event> events = eventRepo.findUnregisteredEventsOfAthlete(athleteId);
+        return AthleteEventResponse.builder().events(events).count(events.size()).build();
     }
 
     public void createAthleteEvent(CreateAthleteEventRequest athleteEventRequest) {
@@ -50,7 +58,7 @@ public class AthleteEventService {
     }
 
     public void deactivateAthleteEvent(Long id) {
-        AthleteEvent athleteEvent =  athleteEventRepo.findById(id).orElseThrow();
+        AthleteEvent athleteEvent = athleteEventRepo.findById(id).orElseThrow();
         athleteEvent.setActive(false);
         athleteEventRepo.save(athleteEvent);
     }

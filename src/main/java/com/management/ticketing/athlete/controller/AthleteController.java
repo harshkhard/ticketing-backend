@@ -2,6 +2,7 @@ package com.management.ticketing.athlete.controller;
 
 import com.management.ticketing.athlete.model.CreateUserRequest;
 import com.management.ticketing.athlete.model.GetAthleteResponse;
+import com.management.ticketing.athlete.model.LoginRequest;
 import com.management.ticketing.athlete.service.AthleteService;
 import jakarta.validation.Valid;
 import lombok.Getter;
@@ -33,9 +34,9 @@ public class AthleteController {
         athleteService.createUser(createUserRequest);
     }
 
-    @GetMapping("/{athleteId}")
-    GetAthleteResponse getAthleteByAthleteId(@PathVariable String athleteId) {
-        return athleteService.getAthleteByAthleteId(athleteId);
+    @PostMapping("/login")
+    GetAthleteResponse getAthleteByAthleteId(@Valid @RequestBody LoginRequest loginRequest) {
+        return athleteService.getAthleteByAthleteId(loginRequest);
     }
 
 }
