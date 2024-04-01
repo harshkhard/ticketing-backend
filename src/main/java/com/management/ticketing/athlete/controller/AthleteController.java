@@ -30,8 +30,8 @@ public class AthleteController {
     }
 
     @PostMapping("/")
-    void createUser(@Valid @RequestBody CreateUserRequest createUserRequest) {
-        athleteService.createUser(createUserRequest);
+    GetAthleteResponse createUser(@Valid @RequestBody CreateUserRequest createUserRequest) {
+         return athleteService.createUser(createUserRequest);
     }
 
     @PostMapping("/login")

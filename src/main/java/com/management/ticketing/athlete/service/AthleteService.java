@@ -28,12 +28,17 @@ public class AthleteService {
                 .collect(Collectors.toList());
     }
 
-    public void createUser(CreateUserRequest createUserRequest) {
+    public GetAthleteResponse createUser(CreateUserRequest createUserRequest) {
         Athlete athlete = new Athlete();
         athlete.setAthleteName(createUserRequest.getAthleteName());
         athlete.setAthleteId(createUserRequest.getAthleteId());
         athleteRepo.save(athlete);
         log.info("created user " + athlete.toString());
+        return GetAthleteResponse.builder()
+                .athleteName(athlete.getAthleteName())
+                .athleteId(athlete.getAthleteId())
+                .id(athlete.getId())
+                .build();
     }
 
     public GetAthleteResponse getAthleteByAthleteId(LoginRequest loginRequest) {
