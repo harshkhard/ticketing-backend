@@ -38,7 +38,7 @@ public class AthleteEventController {
         athleteEventService.createAthleteEvent(createAthleteEventRequest);
     }
 
-    @PatchMapping("/un_register_event/")
+    @PatchMapping("/un_register_event")
     void deactivateAthleteEvent(@Valid @RequestBody UnRegisterEventRequest unRegisterEventRequest) {
         athleteEventService.deactivateAthleteEvent(unRegisterEventRequest);
     }
